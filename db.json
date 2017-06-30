@@ -1,0 +1,103 @@
+{
+  "books": [
+    {
+      "id": 11,
+      "title": "C#",
+      "author": "Petrov",
+      "date": "1999-06-02",
+      "description": "about C#",
+      "issued": false,
+      "region": "4354343"
+    },
+    {
+      "id": 12,
+      "title": "Js",
+      "author": "Ivanov",
+      "date": "2001-01-01",
+      "description": "",
+      "issued": false,
+      "region": "43523"
+    },
+    {
+      "id": 13,
+      "title": "Java",
+      "author": "Sidorov",
+      "date": "2005-05-05",
+      "description": "",
+      "issued": true,
+      "region": "12312"
+    },
+    {
+      "title": "Best book",
+      "author": "Best author",
+      "date": "2010-10-10",
+      "description": "best of the best",
+      "issued": "",
+      "region": "123321",
+      "id": 14
+    },
+    {
+      "title": "Ololo",
+      "author": "Ivanov",
+      "date": "2017-06-09",
+      "description": null,
+      "issued": null,
+      "region": 0,
+      "id": 15
+    },
+    {
+      "title": "Test",
+      "author": "Ivanov",
+      "date": "2017-06-09",
+      "description": "111111111111",
+      "issued": null,
+      "region": 0,
+      "id": 16
+    },
+    {
+      "title": "C# для чайников",
+      "author": "Petrov",
+      "date": "2017-06-09",
+      "description": "111111111111",
+      "issued": null,
+      "region": 0,
+      "id": 17
+    },
+    {
+      "title": "AngularJS 4",
+      "author": "T",
+      "date": "2017-06-02",
+      "description": "11111111111",
+      "issued": null,
+      "region": 0,
+      "id": 18
+    },
+    {
+      "title": "Js",
+      "author": "fgdhdgf",
+      "date": "1900-02-02",
+      "description": "",
+      "issued": true,
+      "region": "",
+      "id": 19
+    },
+    {
+      "title": "Js",
+      "author": "ftudfh",
+      "date": "1932-01-01",
+      "description": "",
+      "issued": "",
+      "region": "",
+      "id": 20
+    },
+    {
+      "title": "Js",
+      "author": "fdghgf",
+      "date": "2005-01-01",
+      "description": "",
+      "issued": true,
+      "region": "",
+      "id": 21
+    }
+  ]
+}

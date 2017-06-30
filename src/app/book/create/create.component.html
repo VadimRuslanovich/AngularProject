@@ -1,0 +1,58 @@
+<div class="container">
+  <h4>New Book</h4>
+
+  <form #myForm="ngForm" novalidate>
+    <div class="form-group">
+      <label>Title:</label>
+      <input class="form-control" name="title" ngModel #title required/>
+    </div>
+    <div class="form-group">
+      <label>Author:</label>
+      <input class="form-control" name="author" ngModel #author required/>
+    </div>
+    <div class="form-group">
+      <label>Date:</label>
+      <input type="date" class="form-control" value="{{ dateNow | date: 'yyyy-MM-dd'}}"
+             max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="date" ngModel #date required/>
+    </div>
+    <div class="form-group">
+      <label>Description:</label>
+      <textarea class="form-control" name="description" ngModel #description></textarea>
+    </div>
+    <div class="form-group">
+      <label>Issued:</label>
+      <input type="checkbox" name="issued" ngModel #issued />
+    </div>
+    <div class="form-group">
+      <label>Region:</label>
+      <select class="selectpicer" [(ngModel)]="selectedRegion" name="Select Region">
+        <option [ngValue]="1" [selected]="selectedRegion == 1">us</option>
+        <option [ngValue]="2" [selected]="selectedRegion == 2">eu</option>
+      </select>
+      <div *ngIf="selectedRegion == 1; then one_field else two_fields"></div>
+      <ng-template #one_field>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label">code: </label>
+          <div class="col-sm-11">
+            <input class="form-control" name="region_one" ngModel #region_one required/>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #two_fields>
+        <div class="form-group row" *ngIf="selectedRegion == 2">
+            <label class="col-sm-1 col-form-label">code1: </label>
+            <div class="col-sm-5">
+              <input class="form-control" name="region_two_1" ngModel #region_two_1 required/>
+            </div>
+            <label class="col-sm-1 col-form-label">code2: </label>
+            <div class="col-sm-5">
+              <input class="form-control" name="region_two_2" ngModel #region_two_2 required/>
+            </div>
+        </div>
+      </ng-template>
+    </div>
+    <button class="btn btn-primary" [disabled]="myForm.invalid" (click)="add(myForm);" data-dismiss="modal">
+      Add
+    </button>
+  </form>
+</div>

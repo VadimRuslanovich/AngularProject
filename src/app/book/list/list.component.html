@@ -1,0 +1,95 @@
+<div class="container"><h2>Books</h2>
+  <div class="row">
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-primary" (click)="filterForm.reset();" routerLink="/books/create">Add Book</button>
+    </div>
+    <div class="col-sm-8">
+      <div class="filter">
+        <form #filterForm="ngForm" novalidate>
+          <div class="form-group">
+            <label>Title:</label>
+            <input name="title" ngModel #title/>
+          </div>
+          <div class="form-group">
+            <label>Author:</label>
+            <input name="author" ngModel #author/>
+          </div>
+          <div class="form-group">
+            <label>Date:</label>
+            <input type="date" max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="date" ngModel #date/>
+          </div>
+          <button class="btn btn-primary" routerLink="/books/filter" [queryParams]="{ title: title.value || tempChecker, author: author.value || tempChecker, date: date.value || tempChecker }" data-dismiss="modal">
+            Filter
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Sort by:</label>
+        <select class="selectpicer" [(ngModel)]="sort" name="Sort Books">
+          <option [ngValue]="title">Titile</option>
+          <option [ngValue]="authir">Author</option>
+          <option [ngValue]="date" >Date</option>
+        </select>
+        <button class="btn btn-primary" routerLink="/books/sort" [queryParams]="{ sort.selected.value: sort, order: asc }" data-dismiss="modal">
+          Sort
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Issued</th>
+      <th>Region</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <div *ngIf="error != null && error != ''; else booksTable">
+      <tr colspan="8">{{error}}</tr>
+    </div>
+    <ng-template #booksTable>
+      <tr *ngFor="let book of books" [class.selected]="book === selectedBook" (click)="onSelect(book)" (dblclick)="gotoDetail()">
+        <td>{{book.id}}</td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.date}}</td>
+        <td>{{book.description}}</td>
+        <td><input type="checkbox" [(ngModel)]="book.issued" [disabled]="true" /></td>
+        <td>{{book.region}}</td>
+        <td><button class="delete" (click)="delete(book); $event.stopPropagation()">x</button></td>
+      </tr>
+    </ng-template>
+    </tbody>
+    <tfoot>
+    <th colspan="8">
+      <!-- pager -->
+      <ul *ngIf="pager.pages && pager.pages.length > 1" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a routerLink="/books" [queryParams]="{ page: 1 }">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a routerLink="/books" [queryParams] ="{ page: pager.currentPage - 1 }">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a routerLink="/books" [queryParams] ="{ page: page }">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a routerLink="/books" [queryParams]="{ page: pager.currentPage + 1 }">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a routerLink="/books" [queryParams]="{ page: pager.totalPages }">Last</a>
+        </li>
+      </ul>
+    </th>
+    </tfoot>
+  </table>
+</div>

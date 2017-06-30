@@ -1,0 +1,31 @@
+<div class="container" *ngIf="book">
+  <form #formEdit="ngForm" novalidate>
+    <h2>{{book.title}} details!</h2>
+    <div class="form-group">
+      <label>Title: </label>
+      <input class="form-control" [(ngModel)]="book.title" name="title" required/>
+    </div>
+    <div class="form-group">
+      <label>Author: </label>
+      <input class="form-control" [(ngModel)]="book.author" name="author" required/>
+    </div>
+    <div class="form-group">
+      <label>Date: </label>
+      <input class="form-control" type="date" max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="date" [(ngModel)]="book.date"  name="date"required/>
+    </div>
+    <div class="form-group">
+      <label>Description: </label>
+      <textarea class="form-control" [(ngModel)]="book.description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Issued: </label>
+      <input type="checkbox" [(ngModel)]="book.issued" name="issued" />
+    </div>
+    <div class="form-group">
+      <label>Region: </label>
+      <input class="form-control" [(ngModel)]="book.region" name="region" />
+    </div>
+    <button (click)="goBack()">Back</button>
+    <button type="submit" [disabled]="formEdit.invalid" (click)="save()">Save</button>
+  </form>
+</div>

@@ -8,7 +8,7 @@ import { PagerService } from '../pager.service'
 import { Book } from '../book';
 import { BookService } from '../book.service';
 
-const pageSize = 3;
+const pageSize = 5;
 
 @Component({
   selector: 'app-list',
@@ -27,8 +27,6 @@ export class ListComponent implements OnInit {
   currentPage: number = 1;
   totalItems: number;
 
-  tempChecker: string = "all";
-
   constructor(private router:Router,
               private route: ActivatedRoute,
               private bookService: BookService,
@@ -41,20 +39,20 @@ export class ListComponent implements OnInit {
 
   check(queryParams:Params) {
     this.currentPage = +queryParams["page"] || 1;
-    if(queryParams["sort"]){
-      return this.bookService.sortBooks(queryParams["sort"], "asc");
+    let properties:string[] = [], values:string[] = [];
+    if (queryParams["title"] && queryParams["title"] != null && queryParams["title"] != "") {
+      properties.push("title");
+      values.push(queryParams["title"]);
     }
-    else if (queryParams["title"] || queryParams["author"] || queryParams["date"]) {
-      return this.filterBooks({
-          title: queryParams["title"] || "",
-          author: queryParams["author"] || "",
-          date: queryParams["date"] || ""
-        },
-        this.currentPage * pageSize - pageSize,
-        pageSize);
-    } else {
-      return this.bookService.sliceBooks(this.currentPage * pageSize - pageSize, pageSize);
+    if (queryParams["author"] && queryParams["author"] != null && queryParams["author"] != "") {
+      properties.push("author");
+      values.push(queryParams["author"]);
     }
+    if (queryParams["date"] && queryParams["date"] != null && queryParams["date"] != "") {
+      properties.push("date");
+      values.push(queryParams["date"]);
+    }
+    return this.bookService.get(queryParams["sort"], "asc", properties, values, (this.currentPage * pageSize - pageSize), pageSize);
   }
 
   getBooks():void {
@@ -71,13 +69,10 @@ export class ListComponent implements OnInit {
 
   setPage(page: number = 1): void {
     if (page < 1) {
-      return;
-    }
-    this.pager = this.pagerService.getPager(this.totalItems, page);
-    if(this.books.length <= 0) {
       this.error = "Nothing found";
       return;
     }
+    this.pager = this.pagerService.getPager(this.totalItems, page, pageSize);
     this.error = "";
   }
 
@@ -93,30 +88,6 @@ export class ListComponent implements OnInit {
           }
         }, error => this.error = this.bookService.handleError(error));
     }
-  }
-
-  filterBooks(filter: any, start: number, limit: number) {
-    let properties:string[] = [], values:string[] = [];
-    if (filter.title != null && filter.title != "" && filter.title != this.tempChecker) {
-      properties.push("title");
-      values.push(filter.title);
-    }
-    if (filter.author != null && filter.author != "" && filter.author != this.tempChecker) {
-      properties.push("author");
-      values.push(filter.author);
-    }
-    if (filter.date != null && filter.date != "" && filter.date != this.tempChecker) {
-      properties.push("date");
-      values.push(filter.date);
-    }
-
-    return this.bookService.filterBooks(properties, values, start, limit);
-  }
-
-  sortBooks(sort: string, order: string) {
-    order == "desc" ? null : order = "asc";
-
-    return this.bookService.sortBooks(sort, order);
   }
 
   onSelect(book: Book): void {

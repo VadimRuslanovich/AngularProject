@@ -18,7 +18,7 @@
             <label>Date:</label>
             <input type="date" max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="dateFilter" ngModel #dateFilter/>
           </div>
-          <button class="btn btn-primary" routerLink="/books/filter" [queryParams]="{ title: titleFilter.value || tempChecker, author: authorFilter.value || tempChecker, date: dateFilter.value || tempChecker }" data-dismiss="modal">
+          <button class="btn btn-primary" routerLink="/books/filter" [queryParams]="{ title: titleFilter.value, author: authorFilter.value, date: dateFilter.value }">
             Filter
           </button>
         </form>
@@ -32,7 +32,7 @@
           <option [ngValue]="'author'">Author</option>
           <option [ngValue]="'date'">Date</option>
         </select>
-        <button class="btn btn-primary" routerLink="/books/sort" [queryParams]="{ sort: sort, order: 'asc' }" data-dismiss="modal">
+        <button class="btn btn-primary" routerLink="/books/sort" [queryParams]="{ sort: sort, order: 'asc' }">
           Sort
         </button>
       </div>
@@ -77,10 +77,10 @@
           <a routerLink="/books" [queryParams]="{ page: 1 }">First</a>
         </li>
         <li [ngClass]="{disabled:pager.currentPage === 1}">
-          <a routerLink="/books" [queryParams] ="{ page: pager.currentPage - 1 }">Previous</a>
+          <a routerLink="/books" [queryParams]="{ page: pager.currentPage - 1 }">Previous</a>
         </li>
         <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-          <a routerLink="/books" [queryParams] ="{ page: page }">{{page}}</a>
+          <a routerLink="/books" [queryParams]="{ page: page }">{{page}}</a>
         </li>
         <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
           <a routerLink="/books" [queryParams]="{ page: pager.currentPage + 1 }">Next</a>

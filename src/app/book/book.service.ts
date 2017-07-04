@@ -3,14 +3,30 @@ import { Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Book } from './book';
+import { environment } from '../../environments/environment'
 
-const apiUrl = "http://localhost:3000/books";
+const apiUrl = environment.apiUrl;
 
 @Injectable()
 export class BookService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) {
+  }
+
+  get(sort: string = "", order: string = "", properties: string[] = [], values: string[] = [], start: number = 0, limit: number = 3): Observable<Response>{
+    var url = "";
+    if (properties.length > 0 && values.length > 0) {
+      for (let i = 0; i < properties.length; i++) {
+        url += properties[i] + "=" + values[i];
+        (i + 1) != properties.length ? url += "&" : null;
+      }
+      url += "&";
+    }
+
+    sort.trim() != "" && sort != null ? url += `_sort=${sort}&_order=${order}&` : null;
+
+    return this.http.get(`${apiUrl}?${url}_start=${start}&_limit=${limit}`);
   }
 
   getBooks(): Observable<Response> {
@@ -50,7 +66,7 @@ export class BookService {
         url += properties[i] + "=" + values[i];
         (i + 1) != properties.length ? url += "&" : null;
       }
-      url = `${url}&_start=${start}&_limit=${limit}`
+      url = `${url}&_start=${start}&_limit=${limit}`;
       return this.http.get(url);
     }
 

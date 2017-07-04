@@ -18,6 +18,9 @@ export class CreateComponent implements OnInit {
               private location: Location){}
 
   add(form:NgForm): void {
+    if(form.invalid)
+      return;
+    
     let book: Book = new Book(
       form.controls['title'].value,
       form.controls['author'].value,

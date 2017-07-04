@@ -1,6 +1,6 @@
 <div class="container"><h2>Books</h2>
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-1">
       <button type="button" class="btn btn-primary" (click)="filterForm.reset();" routerLink="/books/create">Add Book</button>
     </div>
     <div class="col-sm-8">
@@ -8,31 +8,31 @@
         <form #filterForm="ngForm" novalidate>
           <div class="form-group">
             <label>Title:</label>
-            <input name="title" ngModel #title/>
+            <input name="titleFilter" ngModel #titleFilter/>
           </div>
           <div class="form-group">
             <label>Author:</label>
-            <input name="author" ngModel #author/>
+            <input name="authorFilter" ngModel #authorFilter/>
           </div>
           <div class="form-group">
             <label>Date:</label>
-            <input type="date" max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="date" ngModel #date/>
+            <input type="date" max="{{dateNow | date: 'yyyy-MM-dd'}}" min="1900-01-01" name="dateFilter" ngModel #dateFilter/>
           </div>
-          <button class="btn btn-primary" routerLink="/books/filter" [queryParams]="{ title: title.value || tempChecker, author: author.value || tempChecker, date: date.value || tempChecker }" data-dismiss="modal">
+          <button class="btn btn-primary" routerLink="/books/filter" [queryParams]="{ title: titleFilter.value || tempChecker, author: authorFilter.value || tempChecker, date: dateFilter.value || tempChecker }" data-dismiss="modal">
             Filter
           </button>
         </form>
       </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Sort by:</label>
         <select class="selectpicer" [(ngModel)]="sort" name="Sort Books">
-          <option [ngValue]="title">Titile</option>
-          <option [ngValue]="authir">Author</option>
-          <option [ngValue]="date" >Date</option>
+          <option [ngValue]="'title'">Titile</option>
+          <option [ngValue]="'author'">Author</option>
+          <option [ngValue]="'date'">Date</option>
         </select>
-        <button class="btn btn-primary" routerLink="/books/sort" [queryParams]="{ sort.selected.value: sort, order: asc }" data-dismiss="modal">
+        <button class="btn btn-primary" routerLink="/books/sort" [queryParams]="{ sort: sort, order: 'asc' }" data-dismiss="modal">
           Sort
         </button>
       </div>

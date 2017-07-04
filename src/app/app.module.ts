@@ -10,7 +10,8 @@ import { CreateComponent } from '../app/book/create/create.component';
 import { DetailsComponent } from '../app/book/details/details.component';
 
 import { BookService } from '../app/book/book.service';
-import { PagerService } from '../app/book/pager.service'
+import { PagerService } from '../app/book/pager.service';
+import { BookDataResolveService } from '../app/book/book-data-resolve.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PagerService } from '../app/book/pager.service'
   ],
   providers: [
     BookService,
-    PagerService
+    PagerService,
+    BookDataResolveService
   ],
   bootstrap: [AppComponent]
 })

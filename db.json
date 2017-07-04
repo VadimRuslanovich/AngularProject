@@ -6,7 +6,7 @@
       "author": "Petrov",
       "date": "1999-06-02",
       "description": "about C#",
-      "issued": false,
+      "issued": true,
       "region": "4354343"
     },
     {
@@ -78,7 +78,7 @@
       "date": "1900-02-02",
       "description": "",
       "issued": true,
-      "region": "",
+      "region": "452475",
       "id": 19
     },
     {
@@ -87,7 +87,7 @@
       "date": "1932-01-01",
       "description": "",
       "issued": "",
-      "region": "",
+      "region": "46576876878",
       "id": 20
     },
     {
@@ -96,7 +96,7 @@
       "date": "2005-01-01",
       "description": "",
       "issued": true,
-      "region": "",
+      "region": "78",
       "id": 21
     }
   ]

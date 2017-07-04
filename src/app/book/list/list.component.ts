@@ -21,6 +21,7 @@ export class ListComponent implements OnInit {
   dateNow = new Date();
 
   error: string = "";
+  sort: string = "";
 
   pager: any = {};
   currentPage: number = 1;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
@@ -19,18 +20,16 @@ export class DetailsComponent implements OnInit {
     private bookService: BookService,
     private route: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.route.params
-      .switchMap((params: Params) => this.bookService.getBook(+params['id']))
-      .subscribe(book => {
-        var ololo = book.json();
-        this.book = book.json();
-      });
+    this.book = this.route.snapshot.data['book'].json();
   }
 
-  save() {
+  save(form:NgForm) {
+    if(form.invalid)
+      return;
+
     this.bookService.updateBook(this.book);
     this.goBack();
   }
